@@ -1,0 +1,17 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "root",
+  "password": "password",
+  "database": "clorit",
+  "synchronize": true,
+  "logging": false,
+  "entities": ["src/**/*.entity.ts"],
+  "migrations": ["src/migration/**/*.ts"],
+  "subscribers": ["src/subscriber/**/*.ts"],
+  "cli": {
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+  }
+}

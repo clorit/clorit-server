@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { OmitType } from '@nestjs/swagger';
 
 @Entity()
 export class User extends BaseEntity {
@@ -6,8 +7,13 @@ export class User extends BaseEntity {
   id!: number;
 
   @Column({ nullable: false })
-  Name!: string;
+  email!: string;
 
   @Column()
-  age?: number;
+  username!: string;
+
+  @Column()
+  password!: string;
 }
+
+export class UserWithoutPW extends OmitType(User, ['password'] as const) {}

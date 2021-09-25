@@ -13,21 +13,36 @@ export class UserService {
   ) {}
 
   async create(userDto: CreateUserDto): Promise<User> {
-    const { email, username, password } = userDto;
+    const { email, name, password } = userDto;
 
     const user = new User();
     user.email = email;
     user.password = password;
-    user.username = username;
-
+    user.name = name;
+    console.log(user.email);
     await this.userRepository.save(user);
-
-    user.password = undefined;
 
     return user;
   }
 
-  async read(user: User): Promise<generalUserResponse> {
-    return await this.userRepository.findOne(user.id);
+  async read(id: number): Promise<generalUserResponse> {
+    return await this.userRepository.findOne(id);
+  }
+
+  async destroy(user: User): Promise<generalUserResponse> {
+    const userToDestroy = await this.userRepository.findOne(user.id);
+    return await this.userRepository.remove(userToDestroy);
+  }
+
+  async getByEmail(email: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({
+      where: (qb) => {
+        qb.where({ email: email });
+      },
+    });
+  }
+
+  async getById(id: number): Promise<User | undefined> {
+    return await this.userRepository.findOne({ id });
   }
 }

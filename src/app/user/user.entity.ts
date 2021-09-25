@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 import { OmitType } from '@nestjs/swagger';
 
 @Entity()
-export class User extends BaseEntity {
+export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -10,7 +10,7 @@ export class User extends BaseEntity {
   email!: string;
 
   @Column()
-  username!: string;
+  name!: string;
 
   @Column()
   password!: string;

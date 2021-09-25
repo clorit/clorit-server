@@ -8,5 +8,5 @@ export class CreateUserDto {
   readonly password: string;
 
   @IsString()
-  readonly username: string;
+  readonly name: string;
 }

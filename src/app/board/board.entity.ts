@@ -1,6 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { Celeb } from '../celeb/celeb.entity';
+import { Media } from '../media/media.entity';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Board {
@@ -33,4 +41,14 @@ export class Board {
   })
   @ApiProperty({ type: () => Celeb })
   celeb: Celeb;
+
+  @ManyToOne(() => User, (user) => user.boards, {
+    cascade: true,
+  })
+  @ApiProperty({ type: () => User })
+  user: User;
+
+  @OneToMany(() => Media, (media) => media.board)
+  @ApiProperty({ type: () => Media })
+  medias: Media[];
 }

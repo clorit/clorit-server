@@ -1,6 +1,8 @@
 import {
   BadRequestException,
+  Body,
   Controller,
+  Get,
   Param,
   Post,
   UploadedFiles,
@@ -16,7 +18,7 @@ import { diskStorage } from 'multer';
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
-  @Post('/celeb')
+  @Post('/celeb/:boardId')
   @UseInterceptors(
     FilesInterceptor('image', 20, {
       storage: diskStorage({
@@ -26,17 +28,20 @@ export class MediaController {
       fileFilter: imageFileFilter,
     }),
   )
-  async uploadCeleb(@UploadedFiles() files: File[]) {
+  async uploadCeleb(
+    @Param('boardId') boardId: number,
+    @UploadedFiles() files: File[],
+  ) {
     try {
       console.log(files);
-      return await this.mediaService.uploadFiles(files, 'celeb');
+      return await this.mediaService.uploadFiles(files, 'celeb', boardId);
     } catch (e) {
       console.log(e);
       throw new BadRequestException();
     }
   }
 
-  @Post('/cloth')
+  @Post('/cloth/:boardId')
   @UseInterceptors(
     FilesInterceptor('image', 20, {
       storage: diskStorage({
@@ -46,10 +51,22 @@ export class MediaController {
       fileFilter: imageFileFilter,
     }),
   )
-  async uploadCloth(@UploadedFiles() files: File[]) {
+  async uploadCloth(
+    @Param('boardId') boardId: number,
+    @UploadedFiles() files: File[],
+  ) {
     try {
-      console.log(files);
-      return await this.mediaService.uploadFiles(files, 'cloth');
+      return await this.mediaService.uploadFiles(files, 'cloth', boardId);
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException();
+    }
+  }
+
+  @Get('/download/:boardId')
+  async download(@Param('boardId') boardId: number) {
+    try {
+      return await this.mediaService.downloadFiles(boardId);
     } catch (e) {
       console.log(e);
       throw new BadRequestException();

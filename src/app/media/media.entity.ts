@@ -1,0 +1,16 @@
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+
+@Entity()
+export class Media {
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column()
+  name!: string;
+
+  @Column()
+  postId!: number;
+
+  @Column()
+  isCeleb!: boolean;
+}

@@ -14,6 +14,9 @@ export class Celeb {
   @Column()
   count!: number;
 
+  @Column()
+  group!: string;
+
   @OneToMany(() => Board, (board) => board.celeb)
   @ApiProperty({ type: () => Board })
   boards: Board[];

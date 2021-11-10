@@ -21,11 +21,12 @@ export class BoardService {
     const { celebName, userId, ...partBoardDto } = boardDto;
 
     const celeb = await this.celebService.getByName(celebName);
+    await this.celebService.countUp(celeb.id);
     const user = await this.userService.getById(userId);
+
     const saveBoardDto = { celeb: celeb, user: user, ...partBoardDto };
-    console.log(saveBoardDto);
     const boardtoSave = await this.boardRepository.create(saveBoardDto);
-    console.log(boardtoSave);
+
     return await this.boardRepository.save(boardtoSave);
   }
 

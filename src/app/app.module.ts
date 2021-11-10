@@ -14,6 +14,7 @@ import { MediaModule } from './media/media.module';
 import { BoardController } from './board/board.controller';
 import { BoardModule } from './board/board.module';
 import { Board } from './board/board.entity';
+import { Media } from './media/media.entity';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { Board } from './board/board.entity';
       username: 'root',
       password: 'password',
       database: 'clorit',
-      entities: [User, Celeb, Board],
+      entities: [User, Celeb, Board, Media],
     }),
     DatabaseModule,
     UserModule,

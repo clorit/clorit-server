@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Board } from '../board/board.entity';
 
 @Entity()
 export class Media {
@@ -9,8 +11,9 @@ export class Media {
   name!: string;
 
   @Column()
-  postId!: number;
-
-  @Column()
   isCeleb!: boolean;
+
+  @ManyToOne(() => Board, (board) => board.medias)
+  @ApiProperty({ type: () => Board })
+  board: Board;
 }

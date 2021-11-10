@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBoardDto } from 'src/type/board/create-board.dto';
 import { Repository } from 'typeorm';
 import { CelebService } from '../celeb/celeb.service';
+import { UserService } from '../user/user.service';
 import { Board } from './board.entity';
 
 @Injectable()
@@ -12,13 +13,16 @@ export class BoardService {
     private readonly boardRepository: Repository<Board>,
     @Inject(forwardRef(() => CelebService))
     private readonly celebService: CelebService,
+    @Inject(forwardRef(() => UserService))
+    private readonly userService: UserService,
   ) {}
 
   async create(boardDto: CreateBoardDto): Promise<Board> {
-    const { celebName, ...partBoardDto } = boardDto;
+    const { celebName, userId, ...partBoardDto } = boardDto;
 
     const celeb = await this.celebService.getByName(celebName);
-    const saveBoardDto = { celeb: celeb, ...partBoardDto };
+    const user = await this.userService.getById(userId);
+    const saveBoardDto = { celeb: celeb, user: user, ...partBoardDto };
     console.log(saveBoardDto);
     const boardtoSave = await this.boardRepository.create(saveBoardDto);
     console.log(boardtoSave);

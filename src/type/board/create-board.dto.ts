@@ -24,4 +24,7 @@ export class CreateBoardDto {
 
   @IsNumber()
   readonly celebName: string;
+
+  @IsNumber()
+  readonly userId: number;
 }

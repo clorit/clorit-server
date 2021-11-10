@@ -29,17 +29,13 @@ export class UserService {
     return await this.userRepository.findOne(id);
   }
 
-  async destroy(user: User): Promise<generalUserResponse> {
-    const userToDestroy = await this.userRepository.findOne(user.id);
+  async destroy(id: number): Promise<generalUserResponse> {
+    const userToDestroy = await this.userRepository.findOne(id);
     return await this.userRepository.remove(userToDestroy);
   }
 
   async getByEmail(email: string): Promise<User | undefined> {
-    return await this.userRepository.findOne({
-      where: (qb) => {
-        qb.where({ email: email });
-      },
-    });
+    return await this.userRepository.findOne({ email: email });
   }
 
   async getById(id: number): Promise<User | undefined> {

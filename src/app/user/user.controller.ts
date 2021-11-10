@@ -34,10 +34,9 @@ export class UserController {
 
   @Get()
   @ApiOkResponse({ type: generalUserResponse })
-  async read(@Request() req): Promise<generalUserResponse> {
+  async read(@Body() body: { id: number }): Promise<generalUserResponse> {
     try {
-      console.log(req.id);
-      return await this.userService.read(req.id);
+      return await this.userService.read(body.id);
     } catch (e) {
       if (e instanceof QueryFailedError) {
         throw new BadRequestException();
@@ -46,9 +45,9 @@ export class UserController {
   }
 
   @Delete()
-  async destroy(@Request() req): Promise<generalUserResponse> {
+  async destroy(@Body() body: { id: number }): Promise<generalUserResponse> {
     try {
-      return await this.userService.destroy(req.user);
+      return await this.userService.destroy(body.id);
     } catch (e) {
       if (e instanceof QueryFailedError) {
         throw new BadRequestException();

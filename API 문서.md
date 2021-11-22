@@ -7,17 +7,13 @@
 **Params**
 
 ​	name: string
-
 ​	email: string
-
 ​	password: string
 
 **Return**
 
 ​	name: string
-
 ​	email: string
-
 ​	id: int
 
 #### 2. 로그인
@@ -27,15 +23,12 @@
 **Params**
 
 ​	email: string
-
 ​	password: string
 
 **Return**
 
 ​	name: string
-
 ​	email: string
-
 ​	id: int
 
 

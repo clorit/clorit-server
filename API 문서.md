@@ -6,14 +6,14 @@
 
 **Params**
 
-​	name: string
-​	email: string
+​	name: string  
+​	email: string  
 ​	password: string
 
 **Return**
 
-​	name: string
-​	email: string
+​	name: string  
+​	email: string  
 ​	id: int
 
 #### 2. 로그인
@@ -22,13 +22,13 @@
 
 **Params**
 
-​	email: string
+​	email: string  
 ​	password: string
 
 **Return**
 
-​	name: string
-​	email: string
+​	name: string  
+​	email: string  
 ​	id: int
 
 
